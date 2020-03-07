@@ -10,6 +10,7 @@ class Sentence(object):
         self.object = obj[1]
 
 
+# peek the first word's type, if no word return None
 def peek(word_list):
     if word_list:
         word = word_list[0]
@@ -18,6 +19,8 @@ def peek(word_list):
         return None
 
 
+# check the first word & drop
+# if macth the expecting type return the word, else None
 def match(word_list, expecting):
     if word_list:
         word = word_list.pop(0)
@@ -30,11 +33,13 @@ def match(word_list, expecting):
         return None
 
 
+# drop words from first until unmatch the word_type
 def skip(word_list, word_type):
     while peek(word_list) == word_type:
         match(word_list, word_type)
 
 
+# skip any stop word, peek next verb word. if not, raise ParserError
 def parse_verb(word_list):
     skip(word_list, 'stop')
 
@@ -44,6 +49,7 @@ def parse_verb(word_list):
         raise ParserError("Expected a verb next.")
 
 
+# skip any stop word, peek next noun word or direction word. if not, raise ParserError
 def parse_object(word_list):
     skip(word_list, 'stop')
     next_word = peek(word_list)
@@ -56,6 +62,7 @@ def parse_object(word_list):
         raise ParserError("Expected a noun or direction next.")
 
 
+# skip any stop word, peek next noun word. if verb, return player. if not, raise ParserError
 def parse_subject(word_list):
     skip(word_list, 'stop')
     next_word = peek(word_list)
@@ -63,11 +70,12 @@ def parse_subject(word_list):
     if next_word == 'noun':
         return match(word_list, 'noun')
     elif next_word == 'verb':
-        return('noun', 'player')
+        return ('noun', 'player')
     else:
         raise ParserError("Expected a verb next.")
 
 
+# parse a list of words, turn it into a Sentence object
 def parse_sentence(word_list):
     subj = parse_subject(word_list)
     verb = parse_verb(word_list)
