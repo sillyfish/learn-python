@@ -49,7 +49,8 @@ def parse_verb(word_list):
         raise ParserError("Expected a verb next.")
 
 
-# skip any stop word, peek next noun word or direction word. if not, raise ParserError
+# skip any stop word, peek next noun word or direction word. 
+# if not, raise ParserError
 def parse_object(word_list):
     skip(word_list, 'stop')
     next_word = peek(word_list)
@@ -62,7 +63,8 @@ def parse_object(word_list):
         raise ParserError("Expected a noun or direction next.")
 
 
-# skip any stop word, peek next noun word. if verb, return player. if not, raise ParserError
+# skip any stop word, peek next noun word. if verb, return player. 
+# if not, raise ParserError
 def parse_subject(word_list):
     skip(word_list, 'stop')
     next_word = peek(word_list)
