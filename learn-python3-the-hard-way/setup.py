@@ -10,7 +10,7 @@ config = {
     'download_url': 'Where to download it.',
     'author_email': 'sillyfish87@gmail.com',
     'version': '0.1',
-    'install_requires': ['nose'],
+    'install_requires': ['nose', 'flask'],
     'packages': ['ex47', 'ex48'],
     'scripts': [],
     'name': 'lpthw'

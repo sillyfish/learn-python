@@ -8,7 +8,7 @@ app = Flask(__name__)
 # @app.route("/hello")
 @app.route("/hello", methods=['POST', 'GET'])
 def index():
-    '''
+    """
     name = request.args.get('name', 'Nobody')
 
     if name:
@@ -17,7 +17,7 @@ def index():
         greeting = "Hello World"
 
     return render_template("index.html", greeting=greeting)
-    '''
+    """
 
     greeting = "Hello World"
 
