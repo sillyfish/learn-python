@@ -12,6 +12,7 @@ Summary:
 import sys
 
 import pygame
+from image import Image
 from ship import Ship
 
 from settings import Settings
@@ -44,6 +45,8 @@ class AlienInvasion:
     def _update_screen(self):
         """每次循环时都重绘屏幕，让最近绘制的屏幕可见"""
         self.screen.fill(self.settings.bg_color)
+        bg_image = Image("images/Mario_emblem.bmp", (200, 200))
+        bg_image.placeCenter(self.screen)
         self.ship.blitme()
 
         pygame.display.flip()
