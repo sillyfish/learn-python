@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 
 
 rokect = Image("../images/rocket.png", (116, 300))
-rokect.placeCenter(screen)
+rokect.place_center(screen)
 
 while True:
     for event in pygame.event.get():

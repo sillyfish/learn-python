@@ -18,6 +18,6 @@ class Image:
         self.image = pygame.transform.scale(self.image, size)
         self.rect = self.image.get_rect()
 
-    def placeCenter(self, screen):
+    def place_center(self, screen):
         self.rect.center = screen.get_rect().center
         screen.blit(self.image, self.rect)
