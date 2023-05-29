@@ -12,7 +12,6 @@ Summary:
 import sys
 
 import pygame
-from image import Image
 from alien import Alien
 from ship import Ship
 from bullet import Bullet
