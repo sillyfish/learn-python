@@ -48,6 +48,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             self._update_screen()
             self.clock.tick(60)
 
@@ -60,6 +61,11 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+
+    def _update_aliens(self):
+        """更新外星人群中所有外星人的位置"""
+        self._check_fleet_edges()
+        self.aliens.update()
 
     def _create_fleet(self):
         """创建外星人群"""
@@ -128,6 +134,19 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)
+
+    def _check_fleet_edges(self):
+        """有外星人到达边缘时采取相应的措施"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    def _change_fleet_direction(self):
+        """将整群外星人下移, 并改变它们的方向"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
 
 
 if __name__ == "__main__":
