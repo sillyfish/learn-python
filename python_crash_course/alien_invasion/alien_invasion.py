@@ -180,8 +180,11 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """在玩家单击Play按钮时开始新游戏"""
-        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
-        if button_clicked and not self.game_active:
+        if self.play_button.rect.collidepoint(mouse_pos):
+            self._start_game()
+
+    def _start_game(self):
+        if not self.game_active:
             # 重置游戏统计信息
             self.stats.reset_stats()
             self.game_active = True
@@ -214,6 +217,8 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_p:
+            self._start_game()
 
     def _fire_bullet(self):
         """创建一颗子弹, 并将其加入编组bullets中"""
