@@ -50,8 +50,12 @@ class AlienInvasion:
         # 开始Alien Invasion,处于未激活状态
         self.game_active = False
 
-        # 创建Play按钮
-        self.play_button = Button(self, "Play")
+        # 创建难度按钮组
+        self.level_buttons = []
+
+        levels = ["Play", "Elite", "Heroic", "Hell"]
+        for idx, level in enumerate(levels):
+            self.level_buttons.append(Button(self, level, idx))
 
     def run_game(self):
         """开始游戏的主循环"""
@@ -162,7 +166,8 @@ class AlienInvasion:
 
         # 如果游戏处于非活动状态，就绘制Play按钮
         if not self.game_active:
-            self.play_button.draw_button()
+            for level_button in self.level_buttons:
+                level_button.draw_button()
 
         pygame.display.flip()
 
@@ -181,13 +186,14 @@ class AlienInvasion:
 
     def _check_play_button(self, mouse_pos):
         """在玩家单击Play按钮时开始新游戏"""
-        if self.play_button.rect.collidepoint(mouse_pos):
-            self._start_game()
+        for level_button in self.level_buttons:
+            if level_button.rect.collidepoint(mouse_pos):
+                self._start_game(level_button.up)
 
-    def _start_game(self):
+    def _start_game(self, speed_up):
         if not self.game_active:
             # 重置游戏设置
-            self.settings.initialize_dynamic_settings()
+            self.settings.initialize_dynamic_settings(speed_up)
 
             # 重置游戏统计信息
             self.stats.reset_stats()
@@ -222,7 +228,7 @@ class AlienInvasion:
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
         elif event.key == pygame.K_p:
-            self._start_game()
+            self._start_game(0)
 
     def _fire_bullet(self):
         """创建一颗子弹, 并将其加入编组bullets中"""
