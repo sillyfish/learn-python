@@ -87,6 +87,7 @@ class AlienInvasion:
             # 删除现有的子弹并创建一群外星人
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _update_aliens(self):
         """更新外星人群中所有外星人的位置"""
@@ -185,6 +186,9 @@ class AlienInvasion:
 
     def _start_game(self):
         if not self.game_active:
+            # 重置游戏设置
+            self.settings.initialize_dynamic_settings()
+
             # 重置游戏统计信息
             self.stats.reset_stats()
             self.game_active = True
