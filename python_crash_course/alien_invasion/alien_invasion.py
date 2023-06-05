@@ -41,6 +41,8 @@ class AlienInvasion:
 
         # 创建一个用于存储游戏统计信息和创建得分榜的实例
         self.stats = GameStats(self)
+        self._read_high_score()
+
         self.sb = Scoreboard(self)
 
         self.ship = Ship(self)
@@ -191,6 +193,7 @@ class AlienInvasion:
         """监视键盘和鼠标事件"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                self._save_high_score()
                 sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
@@ -267,6 +270,21 @@ class AlienInvasion:
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
+
+    def _save_high_score(self):
+        """保存最高分"""
+        with open(self.settings.high_score_file, "w") as f:
+            f.write(str(self.stats.high_score))
+
+    def _read_high_score(self):
+        """读取最高分"""
+        import os
+
+        if os.path.exists(self.settings.high_score_file):
+            with open(self.settings.high_score_file) as f:
+                high_score = f.read()
+                if high_score:
+                    self.stats.high_score = int(high_score)
 
 
 if __name__ == "__main__":

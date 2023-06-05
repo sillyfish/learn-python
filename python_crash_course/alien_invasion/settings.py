@@ -39,6 +39,8 @@ class Settings:
         # 外星人点数提高速度
         self.scores_scale = 1.5
 
+        self.high_score_file = "high_score.txt"
+
     def initialize_dynamic_settings(self, speed_up):
         """初始化随游戏进行而变化的设置"""
         speed_up += 1
